@@ -17,4 +17,6 @@ public class Task : BaseEntity
     public User Assignee { get; set; }
     public Guid AssigneeId { get; set; }
     public IList<Comment> Comments { get; set; }
+    public Project Project { get; set; }
+    public Guid ProjectId { get; set; }
 }
