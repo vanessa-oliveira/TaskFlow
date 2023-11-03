@@ -1,9 +1,11 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskFlow.Application.Commands.User;
 
 namespace TaskFlow.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class UserController : ControllerBase
@@ -15,8 +17,17 @@ public class UserController : ControllerBase
         _mediator = mediator;
     }
 
-    [HttpPost]
+    [AllowAnonymous]
+    [HttpPost("Register")]
     public async Task<IActionResult> Register(RegisterUserCommand cmd)
+    {
+        var response = await _mediator.Send(cmd);
+        return Ok(response);
+    }
+
+    [AllowAnonymous]
+    [HttpPost("Login")]
+    public async Task<IActionResult> Login(LoginUserCommand cmd)
     {
         var response = await _mediator.Send(cmd);
         return Ok(response);

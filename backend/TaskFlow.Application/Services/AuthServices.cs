@@ -1,27 +1,32 @@
-﻿using TaskFlow.Infrastructure.Contracts;
+﻿using TaskFlow.Application.Exceptions;
+using TaskFlow.Infrastructure.Contracts;
 
 namespace TaskFlow.Application.Services;
+
+public interface IAuthService
+{
+    public Task<bool> SignIn(string email, string password);
+}
 
 public class AuthService : IAuthService
 {
     private readonly IUserRepository _userRepository;
+    private readonly IPasswordService _passwordService;
 
-    public AuthService(IUserRepository userRepository)
+    public AuthService(IUserRepository userRepository, IPasswordService passwordService)
     {
         _userRepository = userRepository;
+        _passwordService = passwordService;
     }
 
-    public string HashPassword(string password)
+    public async Task<bool> SignIn(string email, string password)
     {
-        string salt = BCrypt.Net.BCrypt.GenerateSalt(12);
-        string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password, salt);
-        return hashedPassword;
+        var user = await _userRepository.FindUserByEmail(email);
+        if (user == null)
+        {
+            throw new UserException("Usuário não encontrado!");
+        }
+        return await _passwordService.VerifyPassword(password, user.PasswordHash);
     }
-
-    public async Task<bool> VerifyPassword(string userEmail, string password)
-    {
-        var user = await _userRepository.FindUserByEmail(userEmail);
-        bool passwordMatch = BCrypt.Net.BCrypt.Verify(password, user.PasswordHash);
-        return passwordMatch;
-    }
+    
 }

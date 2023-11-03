@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using TaskFlow.Application.Commands.User;
+using TaskFlow.Application.Services;
 using TaskFlow.Domain.Entities;
 using TaskFlow.Infrastructure.Contracts;
 
@@ -8,17 +9,17 @@ namespace TaskFlow.Application.Handlers.Users;
 public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, ResponseMessage>
 {
     private readonly IUserRepository _userRepository;
-    private readonly IAuthService _authService;
+    private readonly IPasswordService _passwordService;
 
-    public RegisterUserCommandHandler(IUserRepository userRepository, IAuthService authService)
+    public RegisterUserCommandHandler(IUserRepository userRepository, IPasswordService passwordService)
     {
         _userRepository = userRepository;
-        _authService = authService;
+        _passwordService = passwordService;
     }
 
     public async Task<ResponseMessage> Handle(RegisterUserCommand command, CancellationToken cancellationToken)
     {
-        var passwordHash = _authService.HashPassword(command.Password);
+        var passwordHash = _passwordService.HashPassword(command.Password);
         var userInput = new User()
         {
             Firstname = command.Firstname,
