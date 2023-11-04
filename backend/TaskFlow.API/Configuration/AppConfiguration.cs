@@ -22,6 +22,7 @@ public static class AppConfiguration
     {
         services.AddTransient<IUserRepository, UserRepository>();
         services.AddTransient<ITaskRepository, TaskRepository>();
+        services.AddTransient<IProjectRepository, ProjectRepository>();
         services.AddTransient<IAuthService, AuthService>();
         services.AddTransient<ITokenService, TokenService>();
         services.AddTransient<IPasswordService, PasswordService>();
