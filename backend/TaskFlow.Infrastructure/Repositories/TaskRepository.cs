@@ -38,9 +38,9 @@ public class TaskRepository : ITaskRepository
         return task;
     }
 
-    public async Task<IList<Task>> ListAllTasks()
+    public async Task<IList<Task>> ListAllTasksFromProject(Guid projectId)
     {
-        var tasks = await _dataContext.Tasks.ToListAsync();
+        var tasks = await _dataContext.Tasks.Where(t => t.ProjectId == projectId).ToListAsync();
         return tasks;
     }
 
