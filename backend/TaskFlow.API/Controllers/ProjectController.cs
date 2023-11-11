@@ -17,6 +17,7 @@ public class ProjectController : ControllerBase
         _mediator = mediator;
     }
     
+    [AllowAnonymous]
     [HttpPost("RegisterProject")]
     public async Task<IActionResult> RegisterProject(CreateProjectCommand cmd)
     {

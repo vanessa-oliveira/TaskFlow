@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using TaskFlow.Application.Commands.User;
+using TaskFlow.Application.Commands.Users;
 using TaskFlow.Application.Services;
 using TaskFlow.Domain.Entities;
 using TaskFlow.Infrastructure.Contracts;

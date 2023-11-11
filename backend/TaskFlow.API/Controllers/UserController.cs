@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using TaskFlow.Application.Commands.User;
+using TaskFlow.Application.Commands.Users;
 
 namespace TaskFlow.API.Controllers;
 

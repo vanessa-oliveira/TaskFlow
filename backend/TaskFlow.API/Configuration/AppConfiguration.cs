@@ -1,4 +1,5 @@
-﻿using TaskFlow.Application.Commands.User;
+﻿using TaskFlow.Application.Commands.Users;
+using TaskFlow.Application.Handlers.Tasks;
 using TaskFlow.Application.Services;
 using TaskFlow.Infrastructure.Contracts;
 using TaskFlow.Infrastructure.Repositories;
@@ -13,6 +14,7 @@ public static class AppConfiguration
         {
             cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
             cfg.RegisterServicesFromAssembly(typeof(RegisterUserCommand).Assembly);
+            cfg.RegisterServicesFromAssembly(typeof(CreateTaskCommandHandler).Assembly);
         });
         services.AddRepositories();
         return services;

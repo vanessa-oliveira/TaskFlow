@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace TaskFlow.Application.Commands.User;
+namespace TaskFlow.Application.Commands.Users;
 
 public class LoginUserCommand : IRequest<string>
 {

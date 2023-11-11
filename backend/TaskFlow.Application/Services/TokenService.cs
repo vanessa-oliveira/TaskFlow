@@ -30,7 +30,7 @@ public class TokenService : ITokenService
         
         var claims = new List<Claim>
         {
-            new Claim("username", email),
+            new Claim(ClaimTypes.Email, email),
         };
         
         var token = new JwtSecurityToken(
