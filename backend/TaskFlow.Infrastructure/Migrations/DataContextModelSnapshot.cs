@@ -236,7 +236,7 @@ namespace TaskFlow.Infrastructure.Migrations
                     b.HasOne("TaskFlow.Domain.Entities.Project", "Project")
                         .WithMany()
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TaskFlow.Domain.Entities.Project", null)

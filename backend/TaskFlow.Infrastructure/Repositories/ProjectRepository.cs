@@ -1,4 +1,5 @@
-﻿using TaskFlow.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using TaskFlow.Domain.Entities;
 using TaskFlow.Infrastructure.Context;
 using TaskFlow.Infrastructure.Contracts;
 
@@ -29,6 +30,12 @@ public class ProjectRepository : IProjectRepository
     {
         _dataContext.Remove(project);
         return await SaveChanges();
+    }
+
+    public async Task<Project?> GetProjectById(Guid projectId)
+    {
+        var project = await _dataContext.Projects.FirstOrDefaultAsync(p => p.Id == projectId);
+        return project;
     }
 
     private async Task<bool> SaveChanges()

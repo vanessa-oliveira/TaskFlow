@@ -17,11 +17,24 @@ public class ProjectController : ControllerBase
         _mediator = mediator;
     }
     
-    [AllowAnonymous]
     [HttpPost("RegisterProject")]
     public async Task<IActionResult> RegisterProject(CreateProjectCommand cmd)
     {
         var response = await _mediator.Send(cmd);
         return Ok(response);
+    }
+    
+    [HttpPost("UpdateProject")]
+    public async Task<IActionResult> UpdateProject(UpdateProjectCommand cmd)
+    {
+        var response = await _mediator.Send(cmd);
+        return Ok(response);
+    }
+
+    [HttpPost("DeleteProject")]
+    public async Task<IActionResult> DeleteProject(DeleteProjectCommand cmd)
+    {
+        await _mediator.Send(cmd);
+        return NoContent();
     }
 }

@@ -14,6 +14,6 @@ public class TaskConfiguration : IEntityTypeConfiguration<Task>
         builder.HasOne(t => t.CreatedBy).WithMany().HasForeignKey(t => t.CreatedById).OnDelete(DeleteBehavior.NoAction);
         builder.HasOne(t => t.LastModifiedBy).WithMany().HasForeignKey(t => t.LastModifiedById).OnDelete(DeleteBehavior.NoAction);
         builder.HasOne(t => t.Assignee).WithMany().HasForeignKey(t => t.AssigneeId).OnDelete(DeleteBehavior.NoAction);
-        builder.HasOne(t => t.Project).WithMany().HasForeignKey(t => t.ProjectId).OnDelete(DeleteBehavior.NoAction);
+        builder.HasOne(t => t.Project).WithMany().HasForeignKey(t => t.ProjectId).OnDelete(DeleteBehavior.Cascade);
     }
 }

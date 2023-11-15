@@ -12,7 +12,7 @@ using TaskFlow.Infrastructure.Context;
 namespace TaskFlow.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231110230311_InitialMigration")]
+    [Migration("20231115225244_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -239,7 +239,7 @@ namespace TaskFlow.Infrastructure.Migrations
                     b.HasOne("TaskFlow.Domain.Entities.Project", "Project")
                         .WithMany()
                         .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("TaskFlow.Domain.Entities.Project", null)

@@ -87,7 +87,8 @@ namespace TaskFlow.Infrastructure.Migrations
                         name: "FK_Tasks_Projects_ProjectId",
                         column: x => x.ProjectId,
                         principalTable: "Projects",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Tasks_Projects_ProjectId1",
                         column: x => x.ProjectId1,
