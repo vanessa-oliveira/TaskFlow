@@ -6,7 +6,7 @@ using TaskFlow.Domain.Enums;
 using TaskFlow.Infrastructure.Contracts;
 using Task = TaskFlow.Domain.Entities.Task;
 
-namespace TaskFlow.Application.Handlers.Tasks;
+namespace TaskFlow.Application.CommandHandlers.Tasks;
 
 public class CreateTaskCommandHandler : IRequestHandler<CreateTaskCommand, Guid>
 {

@@ -4,22 +4,22 @@ using Microsoft.AspNetCore.Http;
 using TaskFlow.Application.Commands.Tasks;
 using TaskFlow.Infrastructure.Contracts;
 
-namespace TaskFlow.Application.Handlers.Tasks;
+namespace TaskFlow.Application.CommandHandlers.Tasks;
 
-public class ChangeTitleCommandHandler : IRequestHandler<ChangeTitleCommand, Unit>
+public class ChangeStatusCommandHandler : IRequestHandler<ChangeStatusCommand, Unit>
 {
     private readonly ITaskRepository _taskRepository;
     private readonly IUserRepository _userRepository;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public ChangeTitleCommandHandler(ITaskRepository taskRepository, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor)
+    public ChangeStatusCommandHandler(ITaskRepository taskRepository, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor)
     {
         _taskRepository = taskRepository;
         _userRepository = userRepository;
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public async Task<Unit> Handle(ChangeTitleCommand command, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(ChangeStatusCommand command, CancellationToken cancellationToken)
     {
         var userEmail = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Email);
         
@@ -31,14 +31,10 @@ public class ChangeTitleCommandHandler : IRequestHandler<ChangeTitleCommand, Uni
                 var task = await _taskRepository.GetTaskById(command.TaskId);
                 if (task != null)
                 {
-                    task.Title = command.Title;
+                    task.Status = command.Status;
                     task.LastModifiedAt = DateTime.Now;
                     task.LastModifiedById = user.Id;
                     await _taskRepository.UpdateAsync(task);
-                }
-                else
-                {
-                    throw new Exception("Tarefa não encontrada!");
                 }
             }
         }

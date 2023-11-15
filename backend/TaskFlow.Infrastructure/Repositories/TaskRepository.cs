@@ -34,13 +34,19 @@ public class TaskRepository : ITaskRepository
 
     public async Task<Task?> GetTaskById(Guid taskId)
     {
-        var task = await _dataContext.Tasks.FirstOrDefaultAsync(t => t.Id == taskId);
+        var task = await _dataContext.Tasks
+            .Include(t => t.Assignee)
+            .Include(t => t.Comments)
+            .FirstOrDefaultAsync(t => t.Id == taskId);
         return task;
     }
 
     public async Task<IList<Task>> ListAllTasksFromProject(Guid projectId)
     {
-        var tasks = await _dataContext.Tasks.Where(t => t.ProjectId == projectId).ToListAsync();
+        var tasks = await _dataContext.Tasks
+            .Include(t => t.Assignee)
+            .Include(t => t.Comments)
+            .Where(t => t.ProjectId == projectId).ToListAsync();
         return tasks;
     }
 

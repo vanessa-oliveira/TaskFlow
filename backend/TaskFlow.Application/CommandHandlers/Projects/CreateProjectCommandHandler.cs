@@ -3,7 +3,7 @@ using TaskFlow.Application.Commands.Project;
 using TaskFlow.Domain.Entities;
 using TaskFlow.Infrastructure.Contracts;
 
-namespace TaskFlow.Application.Handlers.Projects;
+namespace TaskFlow.Application.CommandHandlers.Projects;
 
 public class CreateProjectCommandHandler : IRequestHandler<CreateProjectCommand, Guid>
 {

@@ -1,5 +1,5 @@
-﻿using TaskFlow.Application.Commands.Users;
-using TaskFlow.Application.Handlers.Tasks;
+﻿using TaskFlow.Application.CommandHandlers.Tasks;
+using TaskFlow.Application.Commands.Users;
 using TaskFlow.Application.Services;
 using TaskFlow.Infrastructure.Contracts;
 using TaskFlow.Infrastructure.Repositories;

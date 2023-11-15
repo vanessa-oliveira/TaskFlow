@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TaskFlow.Application.Commands.Tasks;
+using TaskFlow.Application.Queries.Tasks;
 
 namespace TaskFlow.API.Controllers;
 
@@ -16,6 +17,8 @@ public class TaskController : ControllerBase
     {
         _mediator = mediator;
     }
+    
+    #region Commands
     
     [HttpPost("CreateTask")]
     public async Task<IActionResult> CreateTask(CreateTaskCommand cmd)
@@ -58,4 +61,24 @@ public class TaskController : ControllerBase
         await _mediator.Send(cmd);
         return NoContent();
     }
+    
+    #endregion
+    
+    #region Queries
+    
+    [HttpGet("GetAllTasksFromProject")]
+    public async Task<IActionResult> GetAllTasksFromProject(GetAllTasksFromProjectQuery request)
+    {
+        var response = await _mediator.Send(request);
+        return Ok(response);
+    }
+    
+    [HttpGet("GetTaskById")]
+    public async Task<IActionResult> GetTaskById(GetTaskByIdQuery request)
+    {
+        var response = await _mediator.Send(request);
+        return Ok(response);
+    }
+    
+    #endregion
 }

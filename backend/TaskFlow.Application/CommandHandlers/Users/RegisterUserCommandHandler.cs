@@ -4,7 +4,7 @@ using TaskFlow.Application.Services;
 using TaskFlow.Domain.Entities;
 using TaskFlow.Infrastructure.Contracts;
 
-namespace TaskFlow.Application.Handlers.Users;
+namespace TaskFlow.Application.CommandHandlers.Users;
 
 public class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, ResponseMessage>
 {

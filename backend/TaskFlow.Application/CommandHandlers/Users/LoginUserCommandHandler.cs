@@ -2,7 +2,7 @@
 using TaskFlow.Application.Commands.Users;
 using TaskFlow.Application.Services;
 
-namespace TaskFlow.Application.Handlers.Users;
+namespace TaskFlow.Application.CommandHandlers.Users;
 
 public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, string>
 {

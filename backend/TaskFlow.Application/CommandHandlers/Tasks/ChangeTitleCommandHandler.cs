@@ -4,22 +4,22 @@ using Microsoft.AspNetCore.Http;
 using TaskFlow.Application.Commands.Tasks;
 using TaskFlow.Infrastructure.Contracts;
 
-namespace TaskFlow.Application.Handlers.Tasks;
+namespace TaskFlow.Application.CommandHandlers.Tasks;
 
-public class InsertDescriptionCommandHandler : IRequestHandler<InsertDescriptionCommand, Unit>
+public class ChangeTitleCommandHandler : IRequestHandler<ChangeTitleCommand, Unit>
 {
     private readonly ITaskRepository _taskRepository;
     private readonly IUserRepository _userRepository;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public InsertDescriptionCommandHandler(ITaskRepository taskRepository, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor)
+    public ChangeTitleCommandHandler(ITaskRepository taskRepository, IUserRepository userRepository, IHttpContextAccessor httpContextAccessor)
     {
         _taskRepository = taskRepository;
         _userRepository = userRepository;
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public async Task<Unit> Handle(InsertDescriptionCommand command, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(ChangeTitleCommand command, CancellationToken cancellationToken)
     {
         var userEmail = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Email);
         
@@ -31,10 +31,14 @@ public class InsertDescriptionCommandHandler : IRequestHandler<InsertDescription
                 var task = await _taskRepository.GetTaskById(command.TaskId);
                 if (task != null)
                 {
-                    task.Description = command.Description;
+                    task.Title = command.Title;
                     task.LastModifiedAt = DateTime.Now;
                     task.LastModifiedById = user.Id;
                     await _taskRepository.UpdateAsync(task);
+                }
+                else
+                {
+                    throw new Exception("Tarefa não encontrada!");
                 }
             }
         }
